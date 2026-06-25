@@ -22,7 +22,7 @@ function Feedback() {
   );
 }
 
-export default function Message({ m }) {
+export default function Message({ m, onOpenPage }) {
   if (m.role === "user") {
     return (
       <div className="flex justify-end">
@@ -52,7 +52,7 @@ export default function Message({ m }) {
             {m.text}
             {!m.done && <span className="ml-0.5 inline-block animate-breathe">▍</span>}
           </p>
-          {m.verse && <VerseCard verse={m.verse} />}
+          {m.verse && <VerseCard verse={m.verse} onOpenPage={onOpenPage} />}
           {m.error && <p className="mt-2 text-sm text-maroon">{m.error}</p>}
           {m.done && !m.error && <Feedback />}
         </div>

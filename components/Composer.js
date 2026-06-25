@@ -18,7 +18,9 @@ export default function Composer({ onSend, disabled }) {
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
+          // Enter sends; Shift+Enter inserts a newline. Ignore Enter while an IME
+          // (e.g. Devanagari) is mid-composition, so it commits text instead of sending.
+          if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
             e.preventDefault();
             submit();
           }
